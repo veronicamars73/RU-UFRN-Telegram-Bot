@@ -46,3 +46,9 @@ def get_cardapio():
     janta_vegan.append(get_text_in_li(div_janta[2]))
     return almoco_nonvegan, almoco_vegan, janta_nonvegan, janta_vegan
 
+def get_cardapio_string():
+    cardapio = get_cardapio()
+    string_card = ("Almoço\nProteínas:\n"+ cardapio[0][0][0]+"\nAcompanhamentos:\n"+cardapio[0][1][0]+"\n"+("-"*30)+
+                   "\nVegetariano:\n"+cardapio[1][0][0]+ "\n"+("-"*30)+ "\n"+"Jantar\nProteínas:\n"+cardapio[2][0][0]+
+                   "\nAcompanhamentos:\n"+cardapio[2][1][0]+"\n"+("-"*30)+"\nVegetariano:\n"+cardapio[3][0][0])
+    return string_card

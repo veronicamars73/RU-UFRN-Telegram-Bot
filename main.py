@@ -1,10 +1,14 @@
-from scrapper.scrapper import get_almoco, get_cardapio, get_janta
+import datetime, pytz
+
+
 from telegram.ext.updater import Updater
 from telegram.update import Update
 from telegram.ext.callbackcontext import CallbackContext
 from telegram.ext.commandhandler import CommandHandler
 from telegram.ext.messagehandler import MessageHandler
 from telegram.ext.filters import Filters
+
+from scrapper.scrapper import get_almoco, get_cardapio, get_cardapio_string, get_janta
 
 
 updater = Updater("5518994838:AAF4JtwQ9dsqBuCNUuRTgwK2BYadxRJlON4",
@@ -13,8 +17,9 @@ updater = Updater("5518994838:AAF4JtwQ9dsqBuCNUuRTgwK2BYadxRJlON4",
   
 def start(update: Update, context: CallbackContext):
     update.message.reply_text("Olá! Eu sou o RU Bot. Você pode me usar para descobrir o cardápio do dia do RU da UFRN.")
+    context.job_queue.run_daily(msg,datetime.time(hour=9, minute=0, tzinfo=pytz.timezone('America/Sao_Paulo')),
+                                days=(0, 1, 2, 3, 4, 5, 6), context=update.message.chat_id)
     
-
 def help(update: Update, context: CallbackContext):
     update.message.reply_text("Para me usar você pode solicitar o cardápio do dia usando o comando /cardapio, o cardápio do almoço com /almoco e o cardápio do jantar com /jantar.")
 
@@ -38,6 +43,9 @@ def unknown(update: Update, context: CallbackContext):
 def unknown_text(update: Update, context: CallbackContext):
     update.message.reply_text(
         "Desculpa, não reconheço '%s'" % update.message.text)
+    
+def msg(context):
+    context.bot.send_message(chat_id=context.job.context, text=get_cardapio_string())
 
 updater.dispatcher.add_handler(CommandHandler('start', start))
 updater.dispatcher.add_handler(CommandHandler('almoco', almoco))
@@ -51,3 +59,4 @@ updater.dispatcher.add_handler(MessageHandler(Filters.command, unknown))
 updater.dispatcher.add_handler(MessageHandler(Filters.text, unknown_text))
 
 updater.start_polling()
+updater.idle()
