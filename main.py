@@ -17,11 +17,14 @@ updater = Updater("5518994838:AAF4JtwQ9dsqBuCNUuRTgwK2BYadxRJlON4",
   
 def start(update: Update, context: CallbackContext):
     update.message.reply_text("Olá! Eu sou o RU Bot. Você pode me usar para descobrir o cardápio do dia do RU da UFRN.")
-    context.job_queue.run_daily(msg,datetime.time(hour=9, minute=0, tzinfo=pytz.timezone('America/Sao_Paulo')),
-                                days=(0, 1, 2, 3, 4, 5, 6), context=update.message.chat_id)
     
 def help(update: Update, context: CallbackContext):
-    update.message.reply_text("Para me usar você pode solicitar o cardápio do dia usando o comando /cardapio, o cardápio do almoço com /almoco e o cardápio do jantar com /jantar.")
+    update.message.reply_text("Para me usar você pode solicitar o cardápio do dia usando o comando /cardapio, o cardápio do almoço com /almoco e o cardápio do jantar com /jantar. Para um lembrete diário execute o comando \lembrete.")
+
+def lembrete(update: Update, context: CallbackContext):
+    context.job_queue.run_daily(msg,datetime.time(hour=9, minute=0, tzinfo=pytz.timezone('America/Sao_Paulo')),
+                                days=(0, 1, 2, 3, 4, 5, 6), context=update.message.chat_id)
+    update.message.reply_text("Lembrete diário criado!")
 
 def almoco(update: Update, context: CallbackContext):
     almoco = get_almoco()
@@ -50,6 +53,7 @@ def msg(context):
 updater.dispatcher.add_handler(CommandHandler('start', start))
 updater.dispatcher.add_handler(CommandHandler('almoco', almoco))
 updater.dispatcher.add_handler(CommandHandler('help', help))
+updater.dispatcher.add_handler(CommandHandler('lembrete', lembrete))
 updater.dispatcher.add_handler(CommandHandler('jantar', jantar))
 updater.dispatcher.add_handler(CommandHandler('cardapio', cardapio))
 updater.dispatcher.add_handler(MessageHandler(Filters.text, unknown))
