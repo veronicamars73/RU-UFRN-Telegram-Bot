@@ -19,10 +19,10 @@ def start(update: Update, context: CallbackContext):
     update.message.reply_text("Olá! Eu sou o RU Bot. Você pode me usar para descobrir o cardápio do dia do RU da UFRN.")
     
 def help(update: Update, context: CallbackContext):
-    update.message.reply_text("Para me usar você pode solicitar o cardápio do dia usando o comando /cardapio, o cardápio do almoço com /almoco e o cardápio do jantar com /jantar. Para um lembrete diário execute o comando \lembrete.")
+    update.message.reply_text("Para me usar você pode solicitar o cardápio do dia usando o comando /cardapio, o cardápio do almoço com /almoco e o cardápio do jantar com /jantar. Para um lembrete diário execute o comando /lembrete.")
 
 def lembrete(update: Update, context: CallbackContext):
-    context.job_queue.run_daily(msg,datetime.time(hour=9, minute=0, tzinfo=pytz.timezone('America/Sao_Paulo')),
+    context.job_queue.run_daily(msg,datetime.time(hour=9, minute=00, tzinfo=pytz.timezone('America/Sao_Paulo')),
                                 days=(0, 1, 2, 3, 4, 5, 6), context=update.message.chat_id)
     update.message.reply_text("Lembrete diário criado!")
 
