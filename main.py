@@ -28,16 +28,16 @@ def lembrete(update: Update, context: CallbackContext):
 
 def almoco(update: Update, context: CallbackContext):
     almoco = get_almoco()
-    update.message.reply_text("Almoço\nProteínas:\n"+ almoco[0][0][0]+"\nAcompanhamentos:\n"+almoco[0][1][0]+"\n"+("-"*30)+"\nVegetariano:\n"+almoco[1][0][0])
+    update.message.reply_text("Almoço\nProteínas:\n"+ almoco[0][0]+"\nAcompanhamentos:\n"+almoco[0][1]+"\n"+("-"*30)+"\nVegetariano:\n"+almoco[1][0])
     
 def jantar(update: Update, context: CallbackContext):
     janta = get_janta()
-    update.message.reply_text("Jantar\nProteínas:\n"+janta[0][0][0]+"\nAcompanhamentos:\n"+janta[0][1][0]+"\n"+("-"*30)+"\nVegetariano:\n"+janta[1][0][0])
+    update.message.reply_text("Jantar\nProteínas:\n"+janta[0][0]+"\nAcompanhamentos:\n"+janta[0][1]+"\n"+("-"*30)+"\nVegetariano:\n"+janta[1][0])
     
 def cardapio(update: Update, context: CallbackContext):
     cardapio = get_cardapio()
-    update.message.reply_text("Almoço\nProteínas:\n"+ cardapio[0][0][0]+"\nAcompanhamentos:\n"+cardapio[0][1][0]+"\n"+("-"*30)+"\nVegetariano:\n"+cardapio[1][0][0])
-    update.message.reply_text("Jantar\nProteínas:\n"+cardapio[2][0][0]+"\nAcompanhamentos:\n"+cardapio[2][1][0]+"\n"+("-"*30)+"\nVegetariano:\n"+cardapio[3][0][0])
+    update.message.reply_text("Almoço\nProteínas:\n"+ cardapio[0][0]+"\nAcompanhamentos:\n"+cardapio[0][1]+"\n"+("-"*30)+"\nVegetariano:\n"+cardapio[1][0])
+    update.message.reply_text("Jantar\nProteínas:\n"+cardapio[2][0]+"\nAcompanhamentos:\n"+cardapio[2][1]+"\n"+("-"*30)+"\nVegetariano:\n"+cardapio[3][0])
 
 def unknown(update: Update, context: CallbackContext):
     update.message.reply_text(

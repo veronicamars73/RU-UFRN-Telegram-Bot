@@ -12,43 +12,93 @@ def run_scrapper():
 
 def get_almoco():
     pagina_bs = run_scrapper()
-    div_almoco = pagina_bs.find_all("li", {"class": "Almoço"})
+    div_principal = (pagina_bs.find_all("div", {"class": "proteinas"})[0].find("li", {"class": "Almoço"}))
+    div_acomp = (pagina_bs.find_all("div", {"class": "acompanhamentos"})[0].find("li", {"class": "Almoço"}))
+    div_vegan = (pagina_bs.find_all("div", {"class": "vegetariano"})[0].find("li", {"class": "Almoço"}))
     almoco_nonvegan = []
-    almoco_nonvegan.append(get_text_in_li(div_almoco[0]))
-    almoco_nonvegan.append(get_text_in_li(div_almoco[1]))
+    try:
+        almoco_nonvegan.append(get_text_in_li(div_principal)[0])
+    except:
+        almoco_nonvegan.append("Não há prato principal cadastrado")
+    try:
+        almoco_nonvegan.append(get_text_in_li(div_acomp)[0])
+    except:
+        almoco_nonvegan.append("Não há acompanhamento cadastrado")
+        
     almoco_vegan = []
-    almoco_vegan.append(get_text_in_li(div_almoco[2]))
+    try:
+        almoco_vegan.append(get_text_in_li(div_vegan)[0])
+    except:
+        almoco_vegan.append("Não há almoço vegetariano cadastrado")
     return almoco_nonvegan, almoco_vegan
 
 def get_janta():
     pagina_bs = run_scrapper()
-    div_janta = pagina_bs.find_all("li", {"class": "Janta"})
+    div_principal = (pagina_bs.find_all("div", {"class": "proteinas"})[0].find("li", {"class": "Janta"}))
+    div_acomp = (pagina_bs.find_all("div", {"class": "acompanhamentos"})[0].find("li", {"class": "Janta"}))
+    div_vegan = (pagina_bs.find_all("div", {"class": "vegetariano"})[0].find("li", {"class": "Janta"}))
     janta_nonvegan = []
-    janta_nonvegan.append(get_text_in_li(div_janta[0]))
-    janta_nonvegan.append(get_text_in_li(div_janta[1]))
+    try:
+        janta_nonvegan.append(get_text_in_li(div_principal)[0])
+    except:
+        janta_nonvegan.append("Não há jantar cadastrado")
+    try:
+        janta_nonvegan.append(get_text_in_li(div_acomp)[0])
+    except:
+        janta_nonvegan.append("Não há acompanhamento do jantar cadastrado")
+        
     janta_vegan = []
-    janta_vegan.append(get_text_in_li(div_janta[2]))
+    try:
+        janta_vegan.append(get_text_in_li(div_vegan)[0])
+    except:
+        janta_vegan.append("Não há jantar vegetariano cadastrado")
     return janta_nonvegan, janta_vegan
 
 def get_cardapio():
     pagina_bs = run_scrapper()
-    div_almoco = pagina_bs.find_all("li", {"class": "Almoço"})
+    div_principal = (pagina_bs.find_all("div", {"class": "proteinas"})[0].find("li", {"class": "Almoço"}))
+    div_acomp = (pagina_bs.find_all("div", {"class": "acompanhamentos"})[0].find("li", {"class": "Almoço"}))
+    div_vegan = (pagina_bs.find_all("div", {"class": "vegetariano"})[0].find("li", {"class": "Almoço"}))
     almoco_nonvegan = []
-    almoco_nonvegan.append(get_text_in_li(div_almoco[0]))
-    almoco_nonvegan.append(get_text_in_li(div_almoco[1]))
+    try:
+        almoco_nonvegan.append(get_text_in_li(div_principal)[0])
+    except:
+        almoco_nonvegan.append("Não há prato principal cadastrado")
+    try:
+        almoco_nonvegan.append(get_text_in_li(div_acomp)[0])
+    except:
+        almoco_nonvegan.append("Não há acompanhamento cadastrado")
+        
     almoco_vegan = []
-    almoco_vegan.append(get_text_in_li(div_almoco[2]))
-    div_janta = pagina_bs.find_all("li", {"class": "Janta"})
+    try:
+        almoco_vegan.append(get_text_in_li(div_vegan)[0])
+    except:
+        almoco_vegan.append("Não há almoço vegetariano cadastrado")
+    
+    
+    div_principal = (pagina_bs.find_all("div", {"class": "proteinas"})[0].find("li", {"class": "Janta"}))
+    div_acomp = (pagina_bs.find_all("div", {"class": "acompanhamentos"})[0].find("li", {"class": "Janta"}))
+    div_vegan = (pagina_bs.find_all("div", {"class": "vegetariano"})[0].find("li", {"class": "Janta"}))
     janta_nonvegan = []
-    janta_nonvegan.append(get_text_in_li(div_janta[0]))
-    janta_nonvegan.append(get_text_in_li(div_janta[1]))
+    try:
+        janta_nonvegan.append(get_text_in_li(div_principal)[0])
+    except:
+        janta_nonvegan.append("Não há jantar cadastrado")
+    try:
+        janta_nonvegan.append(get_text_in_li(div_acomp)[0])
+    except:
+        janta_nonvegan.append("Não há acompanhamento do jantar cadastrado")
+        
     janta_vegan = []
-    janta_vegan.append(get_text_in_li(div_janta[2]))
+    try:
+        janta_vegan.append(get_text_in_li(div_vegan)[0])
+    except:
+        janta_vegan.append("Não há jantar vegetariano cadastrado")
     return almoco_nonvegan, almoco_vegan, janta_nonvegan, janta_vegan
 
 def get_cardapio_string():
     cardapio = get_cardapio()
-    string_card = ("Almoço\nProteínas:\n"+ cardapio[0][0][0]+"\nAcompanhamentos:\n"+cardapio[0][1][0]+"\n"+("-"*30)+
-                   "\nVegetariano:\n"+cardapio[1][0][0]+ "\n"+("-"*30)+ "\n"+"Jantar\nProteínas:\n"+cardapio[2][0][0]+
-                   "\nAcompanhamentos:\n"+cardapio[2][1][0]+"\n"+("-"*30)+"\nVegetariano:\n"+cardapio[3][0][0])
+    string_card = ("Almoço\nProteínas:\n"+ cardapio[0][0]+"\nAcompanhamentos:\n"+cardapio[0][1]+"\n"+("-"*30)+
+                   "\nVegetariano:\n"+cardapio[1][0]+ "\n"+("-"*30)+ "\n"+"Jantar\nProteínas:\n"+cardapio[2][0]+
+                   "\nAcompanhamentos:\n"+cardapio[2][1]+"\n"+("-"*30)+"\nVegetariano:\n"+cardapio[3][0])
     return string_card
